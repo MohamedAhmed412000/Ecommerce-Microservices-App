@@ -1,0 +1,31 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/orders
+    username: postgres
+    password: 123456
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.type.mapping: orderConfirmation:com.project.ecommerce.kafka.OrderConfirmation
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 30  # Interval at which the client sends heartbeats
+    leaseExpirationDurationInSeconds: 90  # How long the server waits after the last heartbeat before considering the instance down
+    preferIpAddress: true  # Use IP address instead of hostname
+server:
+  port: 8070
+application:
+  config:
+#    We configured the urls of services to the gateway service
+    customer-url: http://localhost:8222/api/v1/customers
+    product-url: http://localhost:8222/api/v1/products
+    payment-url: http://localhost:8222/api/v1/payments

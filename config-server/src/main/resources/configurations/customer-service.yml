@@ -1,0 +1,11 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://mongo:123456@localhost:27017/customers?authSource=admin&authMechanism=SCRAM-SHA-256
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 30  # Interval at which the client sends heartbeats
+    leaseExpirationDurationInSeconds: 90  # How long the server waits after the last heartbeat before considering the instance down
+    preferIpAddress: true  # Use IP address instead of hostname
+server:
+  port: 8090

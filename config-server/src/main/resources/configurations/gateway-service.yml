@@ -1,0 +1,33 @@
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: customer-service
+          uri: lb://CUSTOMER-SERVICE # this is the name in the eureka cluster
+          predicates:
+            - Path=/api/*/customers/**
+        - id: product-service
+          uri: lb://PRODUCT-SERVICE # this is the name in the eureka cluster
+          predicates:
+            - Path=/api/*/products/**
+        - id: order-service
+          uri: lb://ORDER-SERVICE # this is the name in the eureka cluster
+          predicates:
+            - Path=/api/*/orders/**
+        - id: order-lines-service
+          uri: lb://ORDER-SERVICE # this is the name in the eureka cluster
+          predicates:
+            - Path=/api/*/order-lines/**
+        - id: payment-service
+          uri: lb://PAYMENT-SERVICE # this is the name in the eureka cluster
+          predicates:
+            - Path=/api/*/payments/**
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 30  # Interval at which the client sends heartbeats
+    leaseExpirationDurationInSeconds: 90  # How long the server waits after the last heartbeat before considering the instance down
+server:
+  port: 8222

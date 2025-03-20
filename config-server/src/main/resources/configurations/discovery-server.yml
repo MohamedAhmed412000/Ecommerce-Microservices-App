@@ -1,0 +1,18 @@
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    #    To prevent the discovery server from registering itself as a client
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+  server:
+    enableSelfPreservation: true  # Enable self-preservation mode
+    evictionIntervalTimerInMs: 60000  # Eviction interval (in milliseconds)
+    renewalThresholdUpdateIntervalMs: 15000  # Update interval for renewal threshold (in milliseconds)
+    renewalPercentThreshold: 0.85  # The percentage of renewals required for the server to avoid evictions
+    leaseExpirationDurationInSeconds: 90  # Time before a lease expires and the instance is evicted
+
+server:
+  port: 8761

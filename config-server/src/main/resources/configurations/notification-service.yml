@@ -1,0 +1,36 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://mongo:123456@localhost:27017/notifications?authSource=admin&authMechanism=SCRAM-SHA-256
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: paymentGroup,orderGroup
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: 'com.project.ecommerce.kafka.*'
+        spring.json.type.mapping: orderConfirmation:com.project.ecommerce.kafka.order.OrderConfirmation,paymentConfirmation:com.project.ecommerce.kafka.payment.PaymentConfirmation
+  mail:
+    host: localhost
+    port: 1025
+    username: mohamed # Write any username
+    password: mohamed # Write any password
+    properties:
+      mail:
+        smtp:
+          trust: '*'
+        auth: true
+        starttls:
+          enabled: true
+        connectiontimeout: 5000 # 5 seconds
+        timeout: 3000
+        writetimeout: 5000
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 30  # Interval at which the client sends heartbeats
+    leaseExpirationDurationInSeconds: 90  # How long the server waits after the last heartbeat before considering the instance down
+    preferIpAddress: true  # Use IP address instead of hostname
+server:
+  port: 8040
