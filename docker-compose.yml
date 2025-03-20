@@ -1,6 +1,6 @@
 services:
   zookeeper:
-    image: confluence/cp-zookeeper:latest
+    image: confluentinc/cp-zookeeper:latest
     container_name: zookeeper
     environment:
       ZOOKEEPER_SERVER_ID: 1
@@ -10,7 +10,7 @@ services:
       - "22181:2181"
 
   kafka:
-    image: confluence/cp-kafka:latest
+    image: confluentinc/cp-kafka:latest
     container_name: kafka
     ports:
       - "9092:9092"
@@ -30,3 +30,51 @@ services:
     ports:
       - "1080:1080"
       - "1025:1025"
+
+  orders_db:
+    container_name: orders_db
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: orders
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_orders_data:/var/lib/postgresql/data
+
+  payments_db:
+    container_name: payments_db
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: payments
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_payments_data:/var/lib/postgresql/data
+
+  products_db:
+    container_name: products_db
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: products
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres_products_data:/var/lib/postgresql/data
+
+
+volumes:
+  postgres_orders_data:
+    driver: local
+  postgres_payments_data:
+    driver: local
+  postgres_products_data:
+    driver: local

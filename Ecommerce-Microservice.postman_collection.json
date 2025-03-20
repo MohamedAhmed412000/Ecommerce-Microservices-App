@@ -1,0 +1,1497 @@
+{
+	"info": {
+		"_postman_id": "5b3de9f4-d6a4-4d63-9dbc-b4cc40adffc2",
+		"name": "Ecommerce-Microservice",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32902590"
+	},
+	"item": [
+		{
+			"name": "customers",
+			"item": [
+				{
+					"name": "getAllCustomers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if(pm.response.code == 200) {\r",
+									"    var jsonResponse = pm.response.json();\r",
+									"    var customerId = jsonResponse[0].id;\r",
+									"    pm.collectionVariables.set(\"customerId\", customerId);\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8222/api/v1/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8222",
+							"path": [
+								"api",
+								"v1",
+								"customers"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8222/api/v1/customers",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8222",
+									"path": [
+										"api",
+										"v1",
+										"customers"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "transfer-encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 27 Jul 2024 10:31:20 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": \"66a4af235657f277d37adea9\",\n        \"firstname\": \"Mohamed\",\n        \"lastname\": \"Ahmed\",\n        \"email\": \"mohamed@gmail.com\",\n        \"address\": {\n            \"street\": \"Al-Tawfeqeya\",\n            \"city\": \"Cairo\",\n            \"zipCode\": \"14985\"\n        }\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "getOneCustomer",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8222/api/v1/customers/{{customerId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8222",
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								"{{customerId}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8222/api/v1/customers/{{customerId}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8222",
+									"path": [
+										"api",
+										"v1",
+										"customers",
+										"{{customerId}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "transfer-encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 27 Jul 2024 10:51:13 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"66a4af235657f277d37adea9\",\n    \"firstname\": \"Mohamed\",\n    \"lastname\": \"Ahmed\",\n    \"email\": \"mohamed@gmail.com\",\n    \"address\": {\n        \"street\": \"Al-Tawfeqeya\",\n        \"city\": \"Cairo\",\n        \"zipCode\": \"14985\"\n    }\n}"
+						},
+						{
+							"name": "Not found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8222/api/v1/customers/{{customerId}}45",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8222",
+									"path": [
+										"api",
+										"v1",
+										"customers",
+										"{{customerId}}45"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "0"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 27 Jul 2024 11:19:51 GMT"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "createNewCustomer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if(pm.response.code == 200) {\r",
+									"    var customerId = pm.response.text();\r",
+									"    pm.collectionVariables.set(\"customerId\", customerId);\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\": \"Mohamed\",\r\n    \"lastname\": \"Ahmed\",\r\n    \"email\": \"mohamed@gmail.com\",\r\n    \"address\": {\r\n        \"street\": \"Al-Tawfeqeya\",\r\n        \"city\": \"Cairo\",\r\n        \"zipCode\": \"14985\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8222/api/v1/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8222",
+							"path": [
+								"api",
+								"v1",
+								"customers"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstname\": \"Mohamed\",\r\n    \"lastname\": \"Ahmed\",\r\n    \"email\": \"mohamed@gmail.com\",\r\n    \"address\": {\r\n        \"street\": \"Al-Tawfeqeya\",\r\n        \"city\": \"Cairo\",\r\n        \"zipCode\": \"14985\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8222/api/v1/customers",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8222",
+									"path": [
+										"api",
+										"v1",
+										"customers"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain;charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "24"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 27 Jul 2024 10:59:02 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "66a4d2f657b5373037e957a2"
+						},
+						{
+							"name": "Invalid request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstname\": \"Mohamed\",\r\n    \"email\": \"mohamed@gmail.com\",\r\n    \"address\": {\r\n        \"street\": \"Al-Tawfeqeya\",\r\n        \"city\": \"Cairo\",\r\n        \"zipCode\": \"14985\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8222/api/v1/customers",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8222",
+									"path": [
+										"api",
+										"v1",
+										"customers"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "transfer-encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 27 Jul 2024 11:00:33 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": {\n        \"lastname\": \"Customer lastname is required\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "updateExistingCustomer",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"{{customerId}}\",\r\n    \"firstname\": \"Mohamed\",\r\n    \"lastname\": \"Ahmed\",\r\n    \"email\": \"mohamed@gmail.com\",\r\n    \"address\": {\r\n        \"street\": \"Al-Tawfeqeya\",\r\n        \"city\": \"Cairo\",\r\n        \"zipCode\": \"14985\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8222/api/v1/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8222",
+							"path": [
+								"api",
+								"v1",
+								"customers"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"{{customerId}}\",\r\n    \"firstname\": \"Mohamed\",\r\n    \"lastname\": \"Ahmed\",\r\n    \"email\": \"mohamed@gmail.com\",\r\n    \"address\": {\r\n        \"street\": \"Al-Tawfeqeya\",\r\n        \"city\": \"Cairo\",\r\n        \"zipCode\": \"14985\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8222/api/v1/customers",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8222",
+									"path": [
+										"api",
+										"v1",
+										"customers"
+									]
+								}
+							},
+							"status": "Accepted",
+							"code": 202,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "0"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 27 Jul 2024 11:02:20 GMT"
+								}
+							],
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "Not found",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"{{customerId}}45\",\r\n    \"firstname\": \"Mohamed\",\r\n    \"lastname\": \"Ahmed\",\r\n    \"email\": \"mohamed@gmail.com\",\r\n    \"address\": {\r\n        \"street\": \"Al-Tawfeqeya\",\r\n        \"city\": \"Cairo\",\r\n        \"zipCode\": \"14985\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8222/api/v1/customers",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8222",
+									"path": [
+										"api",
+										"v1",
+										"customers"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain;charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "75"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 27 Jul 2024 11:20:34 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "Customer not found: No customer is found with id=66a4d2f657b5373037e957a245"
+						}
+					]
+				},
+				{
+					"name": "deleteExistingCustomer",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8222/api/v1/customers/{{customerId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8222",
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								"{{customerId}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8222/api/v1/customers/{{customerId}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8222",
+									"path": [
+										"api",
+										"v1",
+										"customers",
+										"{{customerId}}"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sat, 27 Jul 2024 11:18:05 GMT"
+								}
+							],
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "Not found",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8222/api/v1/customers/{{customerId}}45",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8222",
+									"path": [
+										"api",
+										"v1",
+										"customers",
+										"{{customerId}}45"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sat, 27 Jul 2024 11:21:11 GMT"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "products",
+			"item": [
+				{
+					"name": "getAllProducts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if(pm.response.code == 200) {\r",
+									"    var jsonResponse = pm.response.json();\r",
+									"    var productId = jsonResponse[0].id;\r",
+									"    pm.collectionVariables.set(\"productId\", productId);\r",
+									"}\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8222/api/v1/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8222",
+							"path": [
+								"api",
+								"v1",
+								"products"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8222/api/v1/products",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8222",
+									"path": [
+										"api",
+										"v1",
+										"products"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "transfer-encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 27 Jul 2024 11:02:59 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 1,\n        \"name\": \"Smartphone\",\n        \"description\": \"Smartphone with 128GB storage\",\n        \"availableQuantity\": 100,\n        \"price\": 699.99,\n        \"categoryId\": 1,\n        \"categoryName\": \"Electronics\",\n        \"categoryDescription\": \"Electronics\"\n    },\n    {\n        \"id\": 51,\n        \"name\": \"Novel\",\n        \"description\": \"Bestselling novel\",\n        \"availableQuantity\": 200,\n        \"price\": 15.99,\n        \"categoryId\": 51,\n        \"categoryName\": \"Books\",\n        \"categoryDescription\": \"Books\"\n    },\n    {\n        \"id\": 101,\n        \"name\": \"T-shirt\",\n        \"description\": \"Men's T-shirt\",\n        \"availableQuantity\": 150,\n        \"price\": 19.99,\n        \"categoryId\": 101,\n        \"categoryName\": \"Clothing\",\n        \"categoryDescription\": \"Clothing\"\n    },\n    {\n        \"id\": 151,\n        \"name\": \"Blender\",\n        \"description\": \"Blender with multiple speeds\",\n        \"availableQuantity\": 50,\n        \"price\": 89.99,\n        \"categoryId\": 151,\n        \"categoryName\": \"Home Appliances\",\n        \"categoryDescription\": \"Home Appliances\"\n    },\n    {\n        \"id\": 201,\n        \"name\": \"Basketball\",\n        \"description\": \"Basketball\",\n        \"availableQuantity\": 120,\n        \"price\": 29.99,\n        \"categoryId\": 201,\n        \"categoryName\": \"Sports\",\n        \"categoryDescription\": \"Sports\"\n    },\n    {\n        \"id\": 251,\n        \"name\": \"Action Figure\",\n        \"description\": \"Action figure\",\n        \"availableQuantity\": 80,\n        \"price\": 24.99,\n        \"categoryId\": 251,\n        \"categoryName\": \"Toys\",\n        \"categoryDescription\": \"Toys\"\n    },\n    {\n        \"id\": 301,\n        \"name\": \"Dining Table\",\n        \"description\": \"Wooden dining table\",\n        \"availableQuantity\": 10,\n        \"price\": 299.99,\n        \"categoryId\": 301,\n        \"categoryName\": \"Furniture\",\n        \"categoryDescription\": \"Furniture\"\n    },\n    {\n        \"id\": 351,\n        \"name\": \"Face Cream\",\n        \"description\": \"Organic face cream\",\n        \"availableQuantity\": 70,\n        \"price\": 49.99,\n        \"categoryId\": 351,\n        \"categoryName\": \"Health & Beauty\",\n        \"categoryDescription\": \"Health & Beauty\"\n    },\n    {\n        \"id\": 401,\n        \"name\": \"Car Tire\",\n        \"description\": \"Car tire\",\n        \"availableQuantity\": 30,\n        \"price\": 99.99,\n        \"categoryId\": 401,\n        \"categoryName\": \"Automotive\",\n        \"categoryDescription\": \"Automotive\"\n    },\n    {\n        \"id\": 451,\n        \"name\": \"Apples\",\n        \"description\": \"Organic apples\",\n        \"availableQuantity\": 250,\n        \"price\": 3.99,\n        \"categoryId\": 451,\n        \"categoryName\": \"Groceries\",\n        \"categoryDescription\": \"Groceries\"\n    },\n    {\n        \"id\": 501,\n        \"name\": \"Laptop\",\n        \"description\": \"Laptop with 16GB RAM\",\n        \"availableQuantity\": 50,\n        \"price\": 999.99,\n        \"categoryId\": 1,\n        \"categoryName\": \"Electronics\",\n        \"categoryDescription\": \"Electronics\"\n    },\n    {\n        \"id\": 551,\n        \"name\": \"Cookbook\",\n        \"description\": \"Cookbook\",\n        \"availableQuantity\": 100,\n        \"price\": 25.99,\n        \"categoryId\": 51,\n        \"categoryName\": \"Books\",\n        \"categoryDescription\": \"Books\"\n    },\n    {\n        \"id\": 601,\n        \"name\": \"Jeans\",\n        \"description\": \"Women's jeans\",\n        \"availableQuantity\": 120,\n        \"price\": 49.99,\n        \"categoryId\": 101,\n        \"categoryName\": \"Clothing\",\n        \"categoryDescription\": \"Clothing\"\n    },\n    {\n        \"id\": 651,\n        \"name\": \"Microwave Oven\",\n        \"description\": \"Microwave oven\",\n        \"availableQuantity\": 40,\n        \"price\": 199.99,\n        \"categoryId\": 151,\n        \"categoryName\": \"Home Appliances\",\n        \"categoryDescription\": \"Home Appliances\"\n    },\n    {\n        \"id\": 701,\n        \"name\": \"Yoga Mat\",\n        \"description\": \"Yoga mat\",\n        \"availableQuantity\": 60,\n        \"price\": 39.99,\n        \"categoryId\": 201,\n        \"categoryName\": \"Sports\",\n        \"categoryDescription\": \"Sports\"\n    },\n    {\n        \"id\": 751,\n        \"name\": \"Dollhouse\",\n        \"description\": \"Dollhouse\",\n        \"availableQuantity\": 30,\n        \"price\": 79.99,\n        \"categoryId\": 251,\n        \"categoryName\": \"Toys\",\n        \"categoryDescription\": \"Toys\"\n    },\n    {\n        \"id\": 801,\n        \"name\": \"Office Chair\",\n        \"description\": \"Office chair\",\n        \"availableQuantity\": 20,\n        \"price\": 149.99,\n        \"categoryId\": 301,\n        \"categoryName\": \"Furniture\",\n        \"categoryDescription\": \"Furniture\"\n    },\n    {\n        \"id\": 851,\n        \"name\": \"Shampoo\",\n        \"description\": \"Shampoo\",\n        \"availableQuantity\": 100,\n        \"price\": 9.99,\n        \"categoryId\": 351,\n        \"categoryName\": \"Health & Beauty\",\n        \"categoryDescription\": \"Health & Beauty\"\n    },\n    {\n        \"id\": 901,\n        \"name\": \"Car Battery\",\n        \"description\": \"Car battery\",\n        \"availableQuantity\": 15,\n        \"price\": 129.99,\n        \"categoryId\": 401,\n        \"categoryName\": \"Automotive\",\n        \"categoryDescription\": \"Automotive\"\n    },\n    {\n        \"id\": 951,\n        \"name\": \"Milk\",\n        \"description\": \"Organic milk\",\n        \"availableQuantity\": 200,\n        \"price\": 2.99,\n        \"categoryId\": 451,\n        \"categoryName\": \"Groceries\",\n        \"categoryDescription\": \"Groceries\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "getOneProduct",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8222/api/v1/products/{{productId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8222",
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"{{productId}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8222/api/v1/products/{{productId}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8222",
+									"path": [
+										"api",
+										"v1",
+										"products",
+										"{{productId}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "transfer-encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 27 Jul 2024 11:28:45 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"name\": \"Smartphone\",\n    \"description\": \"Smartphone with 128GB storage\",\n    \"availableQuantity\": 100,\n    \"price\": 699.99,\n    \"categoryId\": 1,\n    \"categoryName\": \"Electronics\",\n    \"categoryDescription\": \"Electronics\"\n}"
+						},
+						{
+							"name": "Not found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8222/api/v1/products/{{productId}}2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8222",
+									"path": [
+										"api",
+										"v1",
+										"products",
+										"{{productId}}2"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain;charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "28"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 27 Jul 2024 11:29:10 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "Product not found with id 12"
+						}
+					]
+				},
+				{
+					"name": "createNewProduct",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if(pm.response.code == 200) {\r",
+									"    var productId = pm.response.text();\r",
+									"    pm.collectionVariables.set(\"productId\", productId);\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Wawa Aba\",\r\n    \"description\": \"football\",\r\n    \"availableQuantity\": 10,\r\n    \"price\": 5,\r\n    \"categoryId\": 201\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8222/api/v1/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8222",
+							"path": [
+								"api",
+								"v1",
+								"products"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Wawa Aba\",\r\n    \"description\": \"football\",\r\n    \"availableQuantity\": 10,\r\n    \"price\": 5,\r\n    \"categoryId\": 201\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8222/api/v1/products",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8222",
+									"path": [
+										"api",
+										"v1",
+										"products"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "transfer-encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 27 Jul 2024 11:49:40 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "952"
+						},
+						{
+							"name": "Invalid request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8222/api/v1/products",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8222",
+									"path": [
+										"api",
+										"v1",
+										"products"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "transfer-encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 27 Jul 2024 11:32:43 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": {\n        \"availableQuantity\": \"Quantity value must be positive number\",\n        \"name\": \"Product name is required\",\n        \"description\": \"Product description is required\",\n        \"categoryId\": \"Product category is required\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "purchaseExistingProduct",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"productId\": 1,\r\n        \"Quantity\": 2\r\n    }, {\r\n        \"productId\": 51,\r\n        \"Quantity\": 5\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8222/api/v1/products/purchase",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8222",
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"purchase"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n    {\r\n        \"productId\": 1,\r\n        \"Quantity\": 2\r\n    }, {\r\n        \"productId\": 51,\r\n        \"Quantity\": 5\r\n    }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8222/api/v1/products/purchase",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8222",
+									"path": [
+										"api",
+										"v1",
+										"products",
+										"purchase"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "transfer-encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 27 Jul 2024 14:14:07 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"productId\": 1,\n        \"name\": \"Smartphone\",\n        \"description\": \"Smartphone with 128GB storage\",\n        \"price\": 699.99,\n        \"quantity\": 2\n    },\n    {\n        \"productId\": 51,\n        \"name\": \"Novel\",\n        \"description\": \"Bestselling novel\",\n        \"price\": 15.99,\n        \"quantity\": 5\n    }\n]"
+						},
+						{
+							"name": "Invalid request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n    {\r\n        \r\n    }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8222/api/v1/products/purchase",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8222",
+									"path": [
+										"api",
+										"v1",
+										"products",
+										"purchase"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "transfer-encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 27 Jul 2024 12:05:32 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"timestamp\": \"2024-07-27T12:05:32.468+00:00\",\n    \"status\": 400,\n    \"error\": \"Bad Request\",\n    \"path\": \"/api/v1/products/purchase\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "orders",
+			"item": [
+				{
+					"name": "getAllOrders",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if(pm.response.code == 200) {\r",
+									"    var jsonResponse = pm.response.json();\r",
+									"    var orderId = jsonResponse[0].id;\r",
+									"    pm.collectionVariables.set(\"orderId\", orderId);\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8222/api/v1/orders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8222",
+							"path": [
+								"api",
+								"v1",
+								"orders"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8222/api/v1/orders",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8222",
+									"path": [
+										"api",
+										"v1",
+										"orders"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "transfer-encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 27 Jul 2024 12:31:28 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 1,\n        \"reference\": \"237a57f7-24c9-4c75-ba37-4d2092f840b3\",\n        \"amount\": 1,\n        \"paymentMethod\": \"CREDIT_CARD\",\n        \"customerId\": \"66a4d2f657b5373037e957a2\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "getOneOrder",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8222/api/v1/orders/{{orderId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8222",
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								"{{orderId}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8222/api/v1/orders/{{orderId}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8222",
+									"path": [
+										"api",
+										"v1",
+										"orders",
+										"{{orderId}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "transfer-encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 27 Jul 2024 12:30:30 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"reference\": \"237a57f7-24c9-4c75-ba37-4d2092f840b3\",\n    \"amount\": 1,\n    \"paymentMethod\": \"CREDIT_CARD\",\n    \"customerId\": \"66a4d2f657b5373037e957a2\"\n}"
+						},
+						{
+							"name": "Not found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8222/api/v1/orders/{{orderId}}45",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8222",
+									"path": [
+										"api",
+										"v1",
+										"orders",
+										"{{orderId}}45"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain;charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "29"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 27 Jul 2024 12:31:04 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "Order Not Found with id = 145"
+						}
+					]
+				},
+				{
+					"name": "createNewOrder",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if(pm.response.code == 200) {\r",
+									"    var orderId = pm.response.text();\r",
+									"    pm.collectionVariables.set(\"orderId\", orderId);\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"reference\": \"{{$randomUUID}}\",\r\n    \"amount\": 900,\r\n    \"paymentMethod\": \"CREDIT_CARD\",\r\n    \"customerId\": \"{{customerId}}\",\r\n    \"products\": [\r\n        {\r\n            \"productId\": {{productId}},\r\n            \"quantity\": 2\r\n        }, {\r\n            \"productId\": 51,\r\n            \"quantity\": 10\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8222/api/v1/orders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8222",
+							"path": [
+								"api",
+								"v1",
+								"orders"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"reference\": \"{{$randomUUID}}\",\r\n    \"amount\": 1,\r\n    \"paymentMethod\": \"CREDIT_CARD\",\r\n    \"customerId\": \"{{customerId}}\",\r\n    \"products\": [\r\n        {\r\n            \"productId\": {{productId}},\r\n            \"quantity\": 2\r\n        }, {\r\n            \"productId\": 51,\r\n            \"quantity\": 10\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8222/api/v1/orders",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8222",
+									"path": [
+										"api",
+										"v1",
+										"orders"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "transfer-encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 27 Jul 2024 12:29:56 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "1"
+						},
+						{
+							"name": "Invalid request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8222/api/v1/orders",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8222",
+									"path": [
+										"api",
+										"v1",
+										"orders"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "transfer-encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 27 Jul 2024 12:32:20 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": {\n        \"customerId\": \"Customer must be present\",\n        \"paymentMethod\": \"Payment method must be specified\",\n        \"products\": \"You should al least purchase one product\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "payments",
+			"item": [
+				{
+					"name": "createNewPayment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"amount\": 1,\r\n    \"paymentMethod\": \"CREDIT_CARD\",\r\n    \"orderId\": \"52\",\r\n    \"orderReference\": \"6ad72608-09a5-4ce1-b39d-5a8a15fb9e9e\",\r\n    \"customer\": {\r\n        \"id\": \"66a4d2f657b5373037e957a2\",\r\n        \"firstname\": \"Mohamed\",\r\n        \"lastname\": \"Ahmed\",\r\n        \"email\": \"mohamed@gmail.com\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8222/api/v1/payments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8222",
+							"path": [
+								"api",
+								"v1",
+								"payments"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"amount\": 1,\r\n    \"paymentMethod\": \"CREDIT_CARD\",\r\n    \"orderId\": \"52\",\r\n    \"orderReference\": \"6ad72608-09a5-4ce1-b39d-5a8a15fb9e9e\",\r\n    \"customer\": {\r\n        \"id\": \"66a4d2f657b5373037e957a2\",\r\n        \"firstname\": \"Mohamed\",\r\n        \"lastname\": \"Ahmed\",\r\n        \"email\": \"mohamed@gmail.com\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8222/api/v1/payments",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8222",
+									"path": [
+										"api",
+										"v1",
+										"payments"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "transfer-encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 27 Jul 2024 13:54:36 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "104"
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "accessTokenUrl",
+				"value": "http://localhost:8080/realms/ecommerce/protocol/openid-connect/token",
+				"type": "string"
+			},
+			{
+				"key": "clientId",
+				"value": "micro-services-api",
+				"type": "string"
+			},
+			{
+				"key": "clientSecret",
+				"value": "q8on4Rlk8vLViv5Ponx6sEVP35waCB1V",
+				"type": "string"
+			},
+			{
+				"key": "grant_type",
+				"value": "client_credentials",
+				"type": "string"
+			},
+			{
+				"key": "tokenName",
+				"value": "access-token",
+				"type": "string"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "customerId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "productId",
+			"value": ""
+		},
+		{
+			"key": "orderId",
+			"value": ""
+		}
+	]
+}
