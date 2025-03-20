@@ -1,6 +1,6 @@
 <h1 align="center">Ecommerce Microservices Application</h1>
 <div align="center">
-<img src="/Microservice%20Architecture.png" height="720" >  
+<img src="/Microservice%20Architecture.png" height="500" >  
 
 This project is an example of ecommerce application functionality
 </div> 
